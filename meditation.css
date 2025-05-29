@@ -1,0 +1,199 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+    background-color: #857457;
+}
+
+/* CONTAINER FOR TIMER AND BUTTONS */
+.break-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #857457;
+    padding: 15px;
+    width: 100%;
+    gap: 70px; /* Ensures space between timer and buttons */   
+}
+
+/* TIMER BOX */
+.timer-box {
+    font-size: 150px;
+    font-weight: bold;
+    color: #DF9A00;
+    background: #626262;
+    text-align: center;
+    width: 40%;
+}
+
+/* BUTTONS STACKED ON THE RIGHT */
+.controls-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 35%;
+    gap: 15px;
+}
+
+/* MEDITATION BUTTON */
+.break-btn {
+    font-size: 30px;
+    font-family: 'Courier New', monospace;
+    background: #626262;
+    color: #D9D9D9;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    text-align: center;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* ICON INSIDE THE BUTTON */
+.btn-icon {
+    width: 40px;
+    height: 40px;
+}
+
+/* HOVER EFFECT */
+.break-btn:hover {
+    background: #F2E5C7;
+}
+
+/* CAT CONTAINER BELOW */
+.cat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    background: #10284F;
+    width: 100%;
+    position: relative;
+}
+
+
+/* --- Popup Styles --- */
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* --- Popup Content --- */
+.popup-content {
+    background: #fdf7e3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    color: #294256;
+    width: 300px;
+}
+
+/* --- Closeボタンのスタイル --- */
+#close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    transition: opacity 0.3s ease;
+}
+
+.back-btn .btn-icon {
+    width: 50px; /* サイズ調整 */
+    height: 50px;
+}
+
+#meditation-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #294256;
+}
+#mute-icon {
+    width: 70px;
+    height: 70px;
+}
+
+#close-btn:hover {
+    opacity: 0.7;
+}
+
+
+.back-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 2000; /* ポップアップより前に出すため */
+}
+
+#meditation-volume-wrapper {
+    margin-top: 100px; /* ← 好きなだけ下にずらせます */
+}
+
+
+/* --- Meditation Popup Styles --- */
+#meditation-popup .popup-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    position: relative; /* ← 追加 */
+    height: 50px;        /* ← 追加 */
+}
+
+/* 左矢印ボタン */
+#prev-popup {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+/* 右矢印ボタン */
+#next-popup {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.popup-controls button {
+    background: #DF9A00;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+.centered-gif {
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    height: auto;
+    z-index: 0;
+}
+
+
+

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Page</title>
+    <link rel="stylesheet" href="meditation.css">
+</head>
+<body>
+
+   <!-- Break container with Timer and Buttons -->
+<div class="break-container">
+    <!-- タイマー表示 -->
+    <div class="timer-box">
+        <span id="break-minute">15</span>:<span id="break-second">00</span>
+    </div>
+    
+    <div id="popupTimer" class="popup">
+    <div class="popup-content">
+        <span class="close-btn">&times;</span>
+        <p>Time's Up!</p> 
+        <p>Keep working hard!!</p>
+    </div>
+</div>
+
+    <!-- コントロール全体 -->
+    <div class="controls-container">
+        <!-- 左上に配置される戻るボタン（back.png） -->
+        <button id="close-btn" class="back-btn">
+            <img src="images/back.png" alt="Back Icon" class="btn-icon">
+        </button>
+
+        <!-- How to Meditate ボタンと音量アイコン -->
+       <div style="display: flex; align-items: center; gap: 50px;" id="meditation-volume-wrapper">
+            <button id="break-btn" class="break-btn">
+                <img src="images/question.png" alt="Question Icon" class="btn-icon">
+                How to Meditate
+            </button>
+            <img id="mute-icon" src="images/VolumeOn.png" alt="Mute Icon" class="btn-icon">
+        </div>
+    </div>
+</div>
+
+
+    <!-- Cat section below -->
+    <div class="cat-container">
+        <div class="cat"></div>
+    </div>
+
+    
+    <div id="popup" class="popup">
+        <div class="popup-content"></div>
+    </div>
+
+    <!-- Existing Popup (Unchanged) -
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+            <p>Time's Up!</p> 
+            <p>Keep working hard!!</p>
+        </div>
+    </div>
+    -->
+    
+    <!-- New Meditation Popup -->
+    <div id="meditation-popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" id="meditation-close">&times;</span>
+            <p id="meditation-text">Meditation Tip 1</p>
+            <div class="popup-controls">
+                <button id="prev-popup">◀</button>
+                <button id="next-popup">▶</button>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <img src="images/meditation_cat.gif" class="centered-gif" />
+    
+    <script src="meditation.js"></script>
+    
+    <audio id="meditation-audio" loop>
+    <source src="audio/meditation_music.mp3" type="audio/mpeg">
+    </audio>   
+</body>
+</html>

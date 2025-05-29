@@ -1,0 +1,623 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: 'Courier New', monospace;
+    background-color: #F8D36E;
+}
+
+/* CONTAINER FOR TIMER AND BUTTONS */
+/* BREAK CONTAINER - Now positioned just below the top */
+.break-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #F8D36E;
+  padding: 15px;
+  width: 100%;
+  gap: 100px;
+}
+
+.button-and-status {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-top: 20px; 
+}
+
+.status-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+#friendship-container {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+
+
+/* TIMER BOX */
+.timer-box {
+    font-size: 150px;
+    font-weight: bold;
+    color: #294256;
+    background: #FFF8E3;
+    text-align: center;
+    width: 550px;
+    min-width: 300px;
+    max-width: 550px;
+}
+
+
+/* --- ボタンとコインを横並びに配置する --- */
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 100px; /* ボタンとコイン表示の間隔 */
+}
+
+/* --- ボタンを縦に並べる --- */
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ボタンの間隔 */
+}
+
+/* --- コイン表示用のスタイル --- */
+.coin-display {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 15px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.coin-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+}
+
+
+progress {
+  width: 200px;
+  height: 20px;
+}
+
+progress::-webkit-progress-value {
+  background-color: #76c7c0;
+}
+
+progress::-webkit-progress-bar {
+  background-color: #eee;
+}
+
+
+
+
+.break-btn {
+    font-size: 35px;
+    font-family: 'Courier New', monospace;
+    background: #FFF8E3;
+    color: #294256;
+    border: none;
+    padding: 15px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    margin-right:20px;
+}
+
+.break-btn:hover {
+    background: #F2E5C7;
+}
+
+
+/* CAT CONTAINER BELOW */
+.cat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 75vh;
+    background: #597AC1;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.furniture {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;       /* 横幅を親に合わせて100%に */
+  height: auto;      /* 高さは自動（比率を保つ） */
+  object-fit: contain;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+/* ---------- CAT STYLING ---------- */
+
+/* 🐱 共通静止猫（座るなど） */
+.cat-static {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 🐾 歩く猫（GIF） */
+.cat-anim {
+  position: absolute;
+  width: 200px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* cat_walk.gif 用のサイズ */
+#gif-dryfood,
+#gif-wetfood,
+#gif-catlitter,
+#gif-brush {
+  width: 200px;
+}
+
+/* Frontwalk_.gif 用のサイズ */
+#gif-lickabletreat,
+#gif-scratchingpad {
+  width: 300px;
+}
+
+/* Mouse_move.gif 用のサイズ */
+#gif-toymouse {
+  width: 500px;
+}
+
+/* Ball_throw.gif 用のサイズ */
+#gif-ball {
+  width: 700px;
+}
+
+/* Bristlegrass_move.gif 用のサイズ */
+#gif-bristlegrass {
+  width: 700px;
+}
+
+.flip-horizontal {
+  transform: scaleX(-1);
+}
+
+
+
+/* Dry Food, Wet Food：中央から右上 */
+@keyframes walkTopRight {
+  0%   { bottom: 30%; left: 50%; }
+  100% { bottom: 60%; left: 60%; }
+}
+
+/* Cat Litter：中央下から左上 */
+@keyframes walkBottomLeft {
+  0%   { bottom: 30%; left: 50%; }
+  100% { bottom: 55%; left: 25%; }
+}
+
+/* Lickable Treat, Scratching Pad：中央から真下 */
+@keyframes walkDownCenter {
+  0%   { bottom: 30%; left: 40%; }
+  100% { bottom: 1%; left: 40%; }
+}
+
+/* Brush：中央から右下 */
+@keyframes walkRightDown {
+  0%   { bottom: 30%; left: 50%; }
+  100% { bottom: 1%; left: 85%; }
+}
+
+/* Toy Mouse, Ball, Bristlegrass：下に固定（アニメなし） */
+@keyframes stayBottom {
+  0%   { bottom: 1%; left: 30%; }
+  100% { bottom: 1%; left: 30%; }
+}
+
+
+
+
+/* 🍽️ 食べる猫（中央ポップアップ） */
+.cat-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 600px;
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.8);
+  animation: none;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+@keyframes popupEat {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* アニメーションを付けるためのクラス群 */
+.walkTopRight     { animation: walkTopRight 2.5s forwards; }
+.walkBottomLeft   { animation: walkBottomLeft 2.5s forwards; }
+.walkDownCenter   { animation: walkDownCenter 2.5s forwards; }
+.walkRightDown    { animation: walkRightDown 2.5s forwards; }
+.stayBottom       { animation: stayBottom 1s forwards; }
+
+
+
+/* ポップアップ */
+.popup {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  display: none;
+  z-index: 2;
+}
+
+/* ITEMS BUTTON IN BOTTOM LEFT */
+.item-store-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    gap: 20px;
+}
+
+/* 共通のボタンスタイル（items と store 用） */
+.items-btn,
+.store-btn {
+    font-weight: bold;
+    background: #F8D36E;
+    color: #597AC1;
+    font-size: 35px;
+    padding: 20px 30px;
+    font-family: 'Courier New', monospace;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* --- タブメニューのデザイン --- */
+.tab-menu {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    border-bottom: 3px solid #597AC1;
+    background: #FFF8E3;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    font-size: 18px;
+    color: #597AC1;
+    font-weight: bold;
+    cursor: pointer;
+    background: #F8D36E;
+    border-right: 1px solid #597AC1;
+    transition: background 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn.active {
+    background: #597AC1;
+    color: white;
+}
+
+.popupItems-content h2{
+    color: #597AC1;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+/* --- Item Popup --- */
+#popupItems {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.item-image {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 5px 0;
+}
+
+
+.popupItems-content {
+    background: rgba(255, 222, 147, 0.8);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    width: 60%;
+    min-height: 300px;
+    font-family: 'Courier New', monospace;
+}
+.close-items-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 50px;
+}
+
+.mini-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  display: none;
+}
+
+.mini-popup-content {
+  background: #fff8e3;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  font-family: 'Courier New', monospace;
+  position: relative;
+}
+
+.mini-popup-content button {
+  margin: 5px;
+  padding: 8px 15px;
+  font-size: 18px;
+}
+
+.close-mini-popup {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+}
+#itemPurchasePopup{
+display: none;
+}
+
+
+/* --- Popup Styles --- */
+.popup-timer {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* --- Popup Content --- */
+.popupTimer-content {
+    background: #fdf7e3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    color: #294256;
+    width: 300px;
+}
+
+/* --- Close Button --- */
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 50px;
+}
+
+/* --- アイテムコンテンツ --- */
+.tab-content {
+    display: flex;
+    justify-content: center; /* 全体を中央揃え */
+    padding: 20px;
+    background: #FDF7E3;
+    min-height: 200px;
+}
+
+
+.tab-panel {
+    display: flex;
+    flex-wrap: wrap; /* 横がいっぱいになったら次の段へ */
+    justify-content: flex-start; /* 左寄せ配置 */
+    gap: 15px; /* アイテムカードの間隔 */
+    max-width: 100%; /* 横幅いっぱいに広げる */
+}
+
+
+.tab-panel.active {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* --- アイテムカード --- */
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 120px;
+    height: 160px;
+    margin: 10px;
+    background: #597AC1;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.item-card:hover {
+    transform: scale(1.05);
+}
+
+/* アイテム名 */
+.item-name {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+/* アイテム画像 */
+.item-card img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin: 5px 0;
+}
+
+/* アイテム数 */
+.item-count {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Store専用のポップアップラッパー */
+.popup-store {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Storeの中身 */
+.popupStore-content {
+    background: rgba(255, 222, 147, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    width: 60%;
+    min-height: 300px;
+    font-family: 'Courier New', monospace;
+    box-shadow: 0 0 15px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+/* Storeの閉じるボタン */
+.close-store-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 40px;
+    cursor: pointer;
+    color: #333;
+}
+
+.multi-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  font-family: 'Courier New', monospace;
+}
+
+.multi-popup-content {
+  background: #fff8e3;
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.multi-popup-image {
+  width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.multi-popup-nav button {
+  font-size: 24px;
+  margin: 0 20px;
+  cursor: pointer;
+  background: #597AC1;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.close-multi-popup {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  cursor: pointer;
+}
+

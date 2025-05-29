@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Break Page</title>
+    <link rel="stylesheet" href="breakpage.css">
+    <style>
+        /* Styles for debug controls */
+        #debug-controls-container {
+            position: fixed; 
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.75); 
+            padding: 10px;
+            box-sizing: border-box; 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            gap: 15px; 
+            z-index: 9999; 
+            border-top: 1px solid #444; 
+        }
+        #debug-controls-container button {
+            padding: 8px 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            background-color: #f0ad4e; 
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease; 
+        }
+        #debug-controls-container button:hover {
+            background-color: #ec971f; 
+        }
+
+        /* Styles for locked items in the store */
+        .item-card.locked {
+            opacity: 0.5; 
+            cursor: not-allowed; 
+            position: relative; 
+        }
+        .item-card .unlock-info {
+            font-size: 11px;
+            color: #ffc0cb; 
+            margin-top: 3px;
+            font-weight: bold;
+        }
+        .item-card.locked::before {
+            content: '🔒'; 
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Styles for Level Reward Popup */
+        #level-reward-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
+            display: none; /* Hidden by default */
+            justify-content: center;
+            align-items: center;
+            z-index: 10000; /* Ensure it's on top of everything */
+            font-family: 'Courier New', monospace;
+        }
+        .level-reward-popup-content {
+            background-color: #FFF8E3; /* Light cream background */
+            padding: 30px 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            border: 3px solid #F8D36E; /* Accent border */
+            position: relative;
+            min-width: 320px;
+        }
+        .level-reward-popup-content h3 {
+            color: #294256; /* Dark blue from timer box */
+            font-size: 28px;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .level-reward-popup-content p {
+            color: #555;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .level-reward-popup-content .reward-coins {
+            font-weight: bold;
+            color: #D4AF37; /* Gold-like color for coins */
+            font-size: 20px;
+        }
+        .level-reward-popup-content .coin-icon-popup {
+            width: 24px;
+            height: 24px;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        .level-reward-popup-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 30px;
+            color: #888;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .level-reward-popup-close-btn:hover {
+            color: #333;
+        }
+        .level-reward-popup-content .ok-btn {
+            background-color: #597AC1; /* Blue from cat container */
+            color: white;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.2s ease;
+        }
+        .level-reward-popup-content .ok-btn:hover {
+            background-color: #4A69A8;
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="break-container">
+  <div class="timer-box">
+    <span id="break-minute">15</span>:<span id="break-second">00</span>
+  </div>
+
+  <div class="button-and-status">
+    <div class="buttons">
+      <button class="break-btn">Meditation</button>
+      <button class="break-btn">Stretch</button>
+    </div>
+
+    <div class="status-column">
+      <div class="coin-display">
+        <img src="images/coin.png" alt="Coin Icon" class="coin-icon">
+        <span id="coin-count">0</span>
+      </div>
+
+      <div id="friendship-container">
+        <label for="friendship-bar">Friendship</label>
+        <progress id="friendship-bar" value="0" max="100"></progress>
+        <span id="friendship-level">Level: 1</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    <div class="cat-container">
+        <div class="item-store-buttons">
+            <button class="items-btn">Items</button>
+            <button id="store-btn" class="store-btn">Store</button>
+        </div>
+        <img src="images/furniture.png" class="furniture" alt="Room background with furniture">
+        
+        <img id="cat-sit" src="images/cat_sit.png" class="cat-static sit" style="display: block;" alt="Sitting cat">
+        
+        <!-- GIFs -->
+        <img id="gif-dryfood" src="images/cat_walk.gif" class="cat-anim" style="display: none;" alt="Dry Food">
+        <img id="gif-wetfood" src="images/cat_walk.gif" class="cat-anim" style="display: none;" alt="Wet Food">
+        <img id="gif-lickabletreat" src="images/Frontwalk_.gif" class="cat-anim" style="display: none;" alt="Lickable Treat">
+        <img id="gif-toymouse" src="images/Mouse_move.gif" class="cat-anim" style="display: none;" alt="Toy Mouse">
+        <img id="gif-ball" src="images/Ball_throw.gif" class="cat-anim" style="display: none;" alt="Ball">
+        <img id="gif-bristlegrass" src="images/Bristlegrass_move.gif" class="cat-anim" style="display: none;" alt="Bristlegrass">
+        <img id="gif-catlitter" src="images/cat_walk.gif" class="cat-anim" style="display: none;" alt="Cat Litter">
+        <img id="gif-scratchingpad" src="images/Frontwalk_.gif" class="cat-anim" style="display: none;" alt="Scratching Pad">
+        <img id="gif-brush" src="images/cat_walk.gif" class="cat-anim" style="display: none;" alt="Brush">
+
+        <!-- PNGs -->
+        <img id="Dry_cat" src="images/Dry_cat.png" class="cat-popup" style="display: none;" alt="Dry Food">
+        <img id="cat-eat" src="images/cat_eat.png" class="cat-popup" style="display: none;" alt="Wet Food">
+        <img id="Lickabletreat_cat" src="images/Lickabletreat_cat.png" class="cat-popup" style="display: none;" alt="Lickable Treat">
+        <img id="Mouse_cat" src="images/Mouse_cat.png" class="cat-popup" style="display: none;" alt="Toy Mouse">
+        <img id="Ball_cat" src="images/Ball_play.png" class="cat-popup" style="display: none;" alt="Ball">
+        <img id="Bristlegrass_cat" src="images/Bristlegrass_cat.png" class="cat-popup" style="display: none;" alt="Bristlegrass">
+        <img id="Litter_cat" src="images/Litter_cat.png" class="cat-popup" style="display: none;" alt="Cat Litter">
+        <img id="Scratchingpad_cat" src="images/Scratchingpad_cat.png" class="cat-popup" style="display: none;" alt="Scratching Pad">
+        <img id="Brush_cat" src="images/Brush_cat.png" class="cat-popup" style="display: none;" alt="Brush">
+
+    </div>
+
+    <div id="popupItems" class="popup-items">
+        <div class="popupItems-content">
+            <span class="close-items-btn">&times;</span>
+            <h2>Your Items</h2>
+            <div class="tab-menu">
+                <button class="tab-btn active" data-category="food">Food</button>
+                <button class="tab-btn" data-category="toy">Toy</button>
+                <button class="tab-btn" data-category="supplies">Supplies</button>
+            </div>
+            <div id="items-list" class="tab-panel"></div>
+        </div>
+    </div>
+    
+    <div id="popupStore" class="popup-store"> 
+      <div class="popupStore-content">
+        <span class="close-store-btn">&times;</span>
+        <h2>Item Store</h2>
+        <div class="tab-menu">
+            <button class="tab-btn active" data-store-category="food">Food</button>
+            <button class="tab-btn" data-store-category="toy">Toy</button>
+            <button class="tab-btn" data-store-category="supplies">Supplies</button>
+        </div>
+        <div id="store-items-list" class="tab-panel"></div>
+      </div>
+    </div>
+
+<div id="itemPurchasePopup" class="mini-popup">
+  <div class="mini-popup-content">
+    <span class="close-mini-popup">&times;</span>
+    <h3 id="mini-popup-item-name">Item Name</h3>
+    <img id="mini-popup-item-img" src="images/X.png" alt="Item Preview" style="width: 100px;">
+    <div style="margin: 10px 0;">
+      <button id="decrease-btn">-</button>
+      <span id="purchase-quantity">1</span>
+      <button id="increase-btn">+</button>
+    </div>
+    <p id="mini-popup-total-price">Total: 0💰</p>
+    <button id="confirm-purchase-btn">BUY</button>
+  </div>
+</div>
+
+    <div id="popupTimer" class="popup-timer">
+        <div class="popupTimer-content">
+            <span class="close-btn">&times;</span>
+            <p>Time's Up!</p> 
+            <p>Keep working hard!!</p>
+        </div>
+    </div>
+    
+    <div id="level-reward-popup">
+        <div class="level-reward-popup-content">
+            <span class="level-reward-popup-close-btn">&times;</span>
+            <h3 id="level-reward-title">Level Up!</h3>
+            <p id="level-reward-message">You've reached a new level!</p>
+            <p id="level-reward-coins-text">You received <span class="reward-coins" id="level-reward-coins-amount">0</span> coins! <img src="images/coin.png" alt="Coin" class="coin-icon-popup"></p>
+            <button class="ok-btn" id="level-reward-ok-btn">OK</button>
+        </div>
+    </div>
+
+    <!-- Debug buttons -->
+<div id="debug-controls-container">
+    <button id="debug-add-levels-btn">Add 10 Friendship Levels</button>
+    <button id="debug-reset-friendship-btn">Reset Friendship</button>
+</div>
+
+
+<div id="level-100-popup" class="multi-popup" style="display:none;">
+  <div class="multi-popup-content">
+    <span class="close-multi-popup">&times;</span>
+    <img id="level100-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" class="multi-popup-image" style="display: none;">
+    <p id="level100-text"></p>
+    <div class="multi-popup-nav">
+      <button id="level100-prev">&larr;</button>
+      <button id="level100-next">&rarr;</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- JavaScript -->
+<script src="breakpage.js"></script>
+</body>
+</html>

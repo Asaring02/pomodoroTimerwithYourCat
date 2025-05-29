@@ -1,0 +1,210 @@
+/* --- General Page Styling --- */
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #D84444;
+}
+
+/* --- コイン表示用のスタイル --- */
+.coin-container {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    background: white;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
+
+.coin-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+/* --- Main Container to Align Timer and List --- */
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* --- Timer Section (Left Side) --- */
+.containerTimer {
+    margin-top: 150px;
+    flex: 1;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: white;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.timer {
+    font-size: 180px;
+    font-weight: bold;
+    line-height: 1;
+    color: #294256;
+}
+
+#toggle-btn {
+    font-size: 48px;
+    padding: 10px 30px;
+    cursor: pointer;
+    border: none;
+    background-color: #FFDE93;
+    color: #294256;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+#toggle-btn:hover {
+    background-color: #F8D36E;
+}
+
+/* --- Task List Section (Right Side) --- */
+.containerList {
+    flex: 1;
+    max-width: 500px;
+    max-height: 80vh;
+    margin-bottom: 50px;
+
+}
+
+.list {
+    width: 100%;
+    background: #FFDE93;
+    padding: 40px 30px 70px;
+    min-height: 600px; /* Increase the height */
+}
+
+
+.list h2 {
+    font-size: 36px;
+    color: #294256;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    background: white;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    padding: 10px;
+    font-size: 20px;
+}
+
+button {
+    border: none;
+    outline: none;
+    padding: 10px 40px;
+    background: #D84444;
+    color: #FFDE93;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+ul li {
+    list-style: none;
+    font-size: 24px;
+    padding: 12px 8px 12px 50px;
+    cursor: pointer;
+    position: relative;
+}
+
+ul li::before {
+    content: '';
+    position: absolute;
+    height: 28px;
+    width: 28px;
+    background-image: url(images/unchecked.png);
+    background-size: cover;
+    top: 12px;
+    left: 8px;  
+}
+
+ul li.checked {
+    color: #011638;
+    text-decoration: line-through;
+}
+
+ul li.checked::before {
+    background-image: url(images/checked.png);
+}
+
+ul span {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 40px;
+    font-size: 22px;
+    color: #294256;
+    line-height: 40px;
+    text-align: center;
+}
+
+ul li span:hover {
+    background: #edeef0;
+}
+
+/* --- Popup Styles --- */
+.popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background: #fdf7e3;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: center;
+    font-size: 24px;
+    color: #294256;
+    width: 300px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 50px;
+}
+
+#popup-image {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    margin: 10px auto;
+    border-radius: 8px;
+}

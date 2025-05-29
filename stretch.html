@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stretch Page</title>
+  <link rel="stylesheet" href="stretch.css" />
+</head>
+<body>
+
+  <!-- 戻るボタン -->
+  <button class="back-btn" onclick="window.location.href='breakpage.html'">
+    <img src="images/back.png" alt="Back" class="btn-icon" />
+  </button>
+
+  <!-- タイマーとボタン -->
+  <div class="break-container">
+    <div class="timer-box">
+      <span id="break-minute">15</span>:<span id="break-second">00</span>
+    </div>
+
+    <div class="controls-container">
+      <div style="display: flex; align-items: center; gap: 50px;" id="stretch-wrapper">
+        <button id="break-btn" class="break-btn">
+          <img src="images/question.png" alt="Question Icon" class="btn-icon" />
+          How to Stretch
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 猫エリア -->
+  <div class="cat-container">
+    <div class="cat"></div>
+  </div>
+
+  <div id="popup" class="popup">
+        <div class="popup-content"></div>
+    </div>
+
+
+  
+  <!-- タイマー終了ポップアップ 
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <span class="close-btn">&times;</span>
+      <p>Time's Up!</p> 
+      <p>Keep working hard!!</p>
+    </div>
+  </div>
+-->
+  
+  <!-- ストレッチチップポップアップ -->
+<div id="stretch-popup" class="popup">
+  <div class="popup-content">
+    <span class="close-btn" id="stretch-close">&times;</span>
+    <img id="stretch-image" src="images/stretch1.png" alt="Stretch Tip" />
+    <div class="popup-controls">
+      <button id="prev-popup">◀</button>
+      <button id="next-popup">▶</button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 猫アニメーションGIF -->
+<div class="cat-container">
+  <div class="cat-animation-sequence">
+    <img id="catWalk" src="images/cat_walk.gif" class="cat-gif" />
+    <img id="stretchOnly" src="images/Stretch_only.gif" class="cat-gif hidden" />
+  </div>
+</div>
+
+
+
+
+  <script src="stretch.js"></script>
+</body>
+</html>

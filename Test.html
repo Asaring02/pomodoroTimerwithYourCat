@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Store with Friendship</title>
+  <link rel="stylesheet" href="breakpage.css">
+</head>
+<body>
+  <h1>Pomodoro Reward Store</h1>
+
+  <div id="friendship-container">
+    <label for="friendship-bar">Friendship</label>
+    <progress id="friendship-bar" value="0" max="100" style="width: 200px;"></progress>
+    <span id="friendship-level">Level: 1</span>
+  </div>
+
+  <button id="confirm-purchase-btn">Confirm Purchase</button>
+
+  <script>
+    // --- 初期化 ---
+    let friendship = parseInt(localStorage.getItem("friendship")) || 0;
+    let friendshipLevel = parseInt(localStorage.getItem("friendshipLevel")) || 1;
+    const MAX_FRIENDSHIP = 100;
+    let userCoins = 1000;
+    let selectedItem = { name: "Test Toy", price: 30, img: "test.png" };
+    let selectedQuantity = 1;
+    let selectedCategory = "toy";
+    let userItems = { toy: [] };
+    const coinCount = { textContent: userCoins };
+
+    function updateFriendshipUI() {
+      const bar = document.getElementById("friendship-bar");
+      const levelLabel = document.getElementById("friendship-level");
+
+      if (!bar || !levelLabel) {
+        console.error("❌ Friendship UI elements not found!");
+        return;
+      }
+
+      bar.value = friendship;
+      bar.max = MAX_FRIENDSHIP;
+      levelLabel.textContent = `Level: ${friendshipLevel}`;
+      console.log("🔄 Updating UI → friendship:", friendship, "level:", friendshipLevel);
+    }
+
+    function increaseFriendship(amount = 10) {
+      console.log("📈 Called increaseFriendship with:", amount);
+      if (typeof amount !== 'number' || isNaN(amount)) {
+        console.error("❌ Invalid amount passed to increaseFriendship:", amount);
+        return;
+      }
+
+      friendship += amount;
+
+      while (friendship >= MAX_FRIENDSHIP) {
+        friendship -= MAX_FRIENDSHIP;
+        friendshipLevel++;
+        console.log("🎉 LEVEL UP! New level:", friendshipLevel);
+      }
+
+      localStorage.setItem("friendship", friendship);
+      localStorage.setItem("friendshipLevel", friendshipLevel);
+      updateFriendshipUI();
+    }
+
+    document.getElementById("confirm-purchase-btn").addEventListener("click", () => {
+      const totalPrice = selectedItem.price * selectedQuantity;
+
+      if (isNaN(totalPrice) || typeof totalPrice !== "number" || totalPrice <= 0) {
+        alert("このアイテムの価格が不正です！");
+        return;
+      }
+
+      if (userCoins >= totalPrice) {
+        userCoins -= totalPrice;
+        coinCount.textContent = userCoins;
+        localStorage.setItem("userCoins", userCoins);
+
+        const targetList = userItems[selectedCategory];
+        const existingItem = targetList.find(i => i.name === selectedItem.name);
+
+        if (existingItem) {
+          existingItem.count += selectedQuantity;
+        } else {
+          targetList.push({
+            name: selectedItem.name,
+            img: selectedItem.img,
+            count: selectedQuantity,
+            category: selectedCategory,
+            price: selectedItem.price
+          });
+        }
+
+        const gain = selectedItem.price * selectedQuantity;
+        console.log("🌱 Friendship Gain:", gain);
+        increaseFriendship(gain);
+
+        localStorage.setItem("userItems", JSON.stringify(userItems));
+      } else {
+        alert("You don't have enough money to buy！");
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      updateFriendshipUI();
+    });
+  </script>
+</body>
+</html>
