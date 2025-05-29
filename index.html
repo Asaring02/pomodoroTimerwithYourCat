@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body>
+    <div class="coin-container"> <!-- コイン表示エリア // 変更点 -->
+        <img src="images/coin.png" alt="Coin Icon" class="coin-icon">
+        <span id="coin-count">0</span>
+    </div>
+    
+    <div class="container">
+        <div class="containerTimer">
+            <div class="timer">
+                <span id="minute">25:</span>
+                <span id="second">00</span>
+            </div>
+            <button id="toggle-btn">START</button>
+        </div>
+
+        <div class="containerList">
+            <div class="list">
+                <h2> Tasks </h2>
+                <div class="row">
+                    <input type="text" id="input-box" placeholder="What's your task?">
+                    <button onclick="addTask()">Save</button>
+                </div>
+                <ul id="list-container"></ul>
+            </div>
+        </div>       
+    </div>
+
+    <!-- Popup -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close-btn">&times;</span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
